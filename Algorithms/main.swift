@@ -51,30 +51,72 @@ import Foundation
 //
 //print(romanToInt("MCMXCI"))
 //Two sum algorithm
-func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-    var resultArray:[Int] = [Int]()
-    var firstIndex:Int = 0
-    var secondIndex:Int = 0
-    var i = -1
-    var j = -1
-outerLoop:  for num in nums {
-        i += 1
-        j = -1
-        for secondNum in nums {
-            j += 1
-            if i == j {
-                continue
-            }
-            if(num + secondNum == target){
-                firstIndex = i
-                secondIndex = j
-                break outerLoop
-            }
-        }
-    }
-    resultArray = [firstIndex,secondIndex]
-      return resultArray
-  }
+//func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+//    var resultArray:[Int] = [Int]()
+//    var firstIndex:Int = 0
+//    var secondIndex:Int = 0
+//    var i = -1
+//    var j = -1
+//outerLoop:  for num in nums {
+//        i += 1
+//        j = -1
+//        for secondNum in nums {
+//            j += 1
+//            if i == j {
+//                continue
+//            }
+//            if(num + secondNum == target){
+//                firstIndex = i
+//                secondIndex = j
+//                break outerLoop
+//            }
+//        }
+//    }
+//    resultArray = [firstIndex,secondIndex]
+//      return resultArray
+//  }
+//
+//var result = twoSum([0,2,8,5,10,15,27,30,3,6], 9)
+//print(result)
 
-var result = twoSum([0,2,8,5,10,15,27,30,3,6], 9)
-print(result)
+
+//Roman to Integer solution;
+
+func intToRoman(_ num: Int) -> String {
+    let dict:[Int:String] = [1:"I", 5:"V", 10:"X",50:"L",100:"C",500:"D",1000:"M",4:"IV",9:"IX",40:"XL",90:"XC",400:"CD",900:"CM"]
+    let array = Array(String(num))
+    let countOfArray = array.count
+    var result:String = ""
+    let secondArray =  array.enumerated().map { (index,element) in
+        return  Int(String(element))! * (Int(pow(Double(10),Double(countOfArray-index-1))))
+    }
+    var i:Int = -1
+    for item in secondArray {
+        i += 1
+        guard let x = dict[item] else{
+            let digitZeros = (Int(pow(Double(10),Double(countOfArray-i-1))))
+            let withoutDigit = item/digitZeros
+            if(withoutDigit<5){
+            guard let y = dict[digitZeros] else { continue }
+            var j:Int = 0
+            while withoutDigit > j {
+                j += 1
+                result += y
+            }
+            }else{
+                guard let y = dict[5*digitZeros] else { continue }
+                result += y
+                guard let z = dict[digitZeros] else { continue }
+                var j:Int = 0
+                while withoutDigit-5 > j {
+                    j += 1
+                    result += z
+                }
+            }
+            continue
+        }
+        result += x
+    }
+    return result
+}
+print(intToRoman(1994))
