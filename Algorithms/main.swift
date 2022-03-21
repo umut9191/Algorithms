@@ -127,31 +127,52 @@ import Foundation
 //   if ( num >= 100 && num <= 999) { n = 3 }
 //   if ( num >= 10  && num <= 99) { n = 2}
 //   if ( num >= 1  && num <= 9) { n = 1}
-func intToRoman(_ num: Int) -> String {
-    let dict:[Int:String] = [0:"",1:"I",2:"II",3:"III", 5:"V",6:"VI",7:"VII",8:"VIII", 10:"X",50:"L",100:"C",500:"D",1000:"M",4:"IV",9:"IX",40:"XL",90:"XC",400:"CD",900:"CM",20:"XX",30:"XXX",60:"LX",70:"LXX",80:"LXXX",200:"CC",300:"CCC",600:"DC",700:"DCC",800:"DCCC",2000:"MM",3000:"MMM"]
-   
-       if ( num > 1000 && num <= 3999) {
-           let tempo:Int = num%1000
-           let tempo2:Int = tempo%100
-           let forthNum:Int = tempo2 > 10 ? num%10 : tempo2
-           let thirdNum:Int = tempo2 > 10 ? tempo2 - forthNum : 0
-           let secondNum:Int = tempo - tempo2
-           let firstNum:Int = num - tempo
-           if let x = dict[firstNum],let y = dict[secondNum],let z = dict[thirdNum],let t = dict[forthNum] {return x + y + z + t}
-       }
-       if ( num > 100 && num <= 999) {
-           let tempo:Int = num%100
-           let thirdNum:Int = tempo > 10 ? num%10 : tempo
-           let secondNum:Int = tempo > 10 ? tempo - thirdNum : 0
-           let firstNum:Int = num - tempo
-           if let x = dict[firstNum],let y = dict[secondNum],let z = dict[thirdNum] {return x + y + z}
-       }
-       if ( num > 10  && num <= 99) {
-           let secondNum:Int = num%10
-           let firstNum:Int = num - secondNum
-           if let x = dict[firstNum],let y = dict[secondNum] {return x + y }
-       }
-    if let x = dict[num] {return x }
-    return ""
-}
-print(intToRoman(2000))
+//func intToRoman(_ num: Int) -> String {
+//    let dict:[Int:String] = [0:"",1:"I",2:"II",3:"III", 5:"V",6:"VI",7:"VII",8:"VIII", 10:"X",50:"L",100:"C",500:"D",1000:"M",4:"IV",9:"IX",40:"XL",90:"XC",400:"CD",900:"CM",20:"XX",30:"XXX",60:"LX",70:"LXX",80:"LXXX",200:"CC",300:"CCC",600:"DC",700:"DCC",800:"DCCC",2000:"MM",3000:"MMM"]
+//
+//       if ( num > 1000 && num <= 3999) {
+//           let tempo:Int = num%1000
+//           let tempo2:Int = tempo%100
+//           let forthNum:Int = tempo2 > 10 ? num%10 : tempo2
+//           let thirdNum:Int = tempo2 > 10 ? tempo2 - forthNum : 0
+//           let secondNum:Int = tempo - tempo2
+//           let firstNum:Int = num - tempo
+//           if let x = dict[firstNum],let y = dict[secondNum],let z = dict[thirdNum],let t = dict[forthNum] {return x + y + z + t}
+//       }
+//       if ( num > 100 && num <= 999) {
+//           let tempo:Int = num%100
+//           let thirdNum:Int = tempo > 10 ? num%10 : tempo
+//           let secondNum:Int = tempo > 10 ? tempo - thirdNum : 0
+//           let firstNum:Int = num - tempo
+//           if let x = dict[firstNum],let y = dict[secondNum],let z = dict[thirdNum] {return x + y + z}
+//       }
+//       if ( num > 10  && num <= 99) {
+//           let secondNum:Int = num%10
+//           let firstNum:Int = num - secondNum
+//           if let x = dict[firstNum],let y = dict[secondNum] {return x + y }
+//       }
+//    if let x = dict[num] {return x }
+//    return ""
+//}
+//print(intToRoman(2000))
+
+// Palidrome Number;
+
+func isPalindrome(_ x: Int) -> Bool {
+    if x >= 0 && x < 10 {
+        return true
+    }
+    if x < 0 {
+        return false
+    }
+    let array = Array(String(x))
+    var count:Int = 0
+     count = array.count % 2 == 0 ? array.count/2 : (array.count - 1)/2
+    for i in 0...count {
+        if array[i] != array[array.count - i - 1] {
+            return false
+        }
+    }
+    return true
+  }
+print(isPalindrome(15651))
